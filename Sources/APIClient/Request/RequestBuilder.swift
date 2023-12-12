@@ -26,42 +26,42 @@ public final class RequestBuilder<Response: Decodable> {
     public init() {}
 
     @discardableResult
-    func path(_ path: String) -> Self {
+    public func path(_ path: String) -> Self {
         self.path = path
         return self
     }
 
     @discardableResult
-    func method(_ method: HTTPMethod) -> Self {
+    public func method(_ method: HTTPMethod) -> Self {
         self.method = method
         return self
     }
 
     @discardableResult
-    func headers(_ headers: HTTPHeaders) -> Self {
+    public func headers(_ headers: HTTPHeaders) -> Self {
         self.headers = headers
         return self
     }
 
     @discardableResult
-    func urlParameters(_ urlParameters: Encodable) -> Self {
+    public func urlParameters(_ urlParameters: Encodable) -> Self {
         self.urlParameters = urlParameters
         return self
     }
 
     @discardableResult
-    func body(_ body: Encodable) -> Self {
+    public func body(_ body: Encodable) -> Self {
         self.body = body
         return self
     }
 
     @discardableResult
-    func version(_ version: String) -> Self {
+    public func version(_ version: String) -> Self {
         self.version = version
         return self
     }
 
-    func build() -> Request<Response> {
+    public func build() -> Request<Response> {
         .init(
             path: path,
             method: method,
