@@ -126,7 +126,7 @@ class ViewModel: ObservableObject {
     @Published private(set) var persons: [Person] = []
     @Published private(set) var errorMessage: String = ""
     
-    // We can user DI for more better performance, code splitting and styling 
+    // We can use DI for more better performance, code splitting and styling 
     let services: APIPersonUseCase = APIPersonUseCase()
 }
 
