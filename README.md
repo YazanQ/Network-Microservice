@@ -87,7 +87,7 @@ final class APIPersonUseCase {
 
 extension APIPersonUseCase: PersonUseCase {
     func loadPerson() async throws -> [Person] {
-        let request = RequestBuilder<[Person]>()
+        let request = RequestBuilder<BaseResponse<[Person]>>()
             .path("persons")
             .method(.get)
             .build()
@@ -96,7 +96,7 @@ extension APIPersonUseCase: PersonUseCase {
     }
     
     func addPerson(_ parameters: AddPersonParameters) async throws -> Person {
-        let request = RequestBuilder<Person>()
+        let request = RequestBuilder<BaseResponse<Person>>()
             .path("persons")
             .method(.post)
             .encode(parameters, bodyEncoding: .jsonEncoding)
@@ -106,7 +106,7 @@ extension APIPersonUseCase: PersonUseCase {
     }
     
     func deletePerson(_ book: Book) async throws -> VoidResponse {
-        let request = RequestBuilder<VoidResponse>()
+        let request = RequestBuilder<BaseResponse<VoidResponse>>()
             .path("persons/\(person.id)")
             .method(.delete)
             .build()
