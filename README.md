@@ -115,6 +115,41 @@ extension APIPersonUseCase: PersonUseCase {
     }
 }
 ```
+
+**3. ViewModel or somewhere else:**
+
+```swift
+class ViewModel: ObservableObject {
+
+    //You can use any loading indicator
+    @Published private(set) var loadingState: LoadingState = .idle
+    @Published private(set) var persons: [Person] = []
+    @Published private(set) var errorMessage: String = ""
+    
+    // We can user DI for more better performance, code splitting and styling 
+    let services: APIPersonUseCase = APIPersonUseCase()
+}
+
+extension ViewModel {
+    func loadPersons() {
+        Task { @MainActor in
+            do {
+                loadingState = .loading
+                let persons = try await services.loadPersons()
+                self.persons = persons
+            } catch {
+                errorMessage = error.localizedDescription
+            }
+            
+            loadingState = .idle
+        }
+    }
+}
+
+```
+
+**4. Call the API method(i will leave it to you since you may have different way to call it)**
+
 ## Installation
 
 ### Swift Package Manager
