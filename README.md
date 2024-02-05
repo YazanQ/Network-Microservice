@@ -3,10 +3,6 @@
 <p align="justify">
     <img src="https://img.shields.io/badge/Swift-5-orange.svg" />
     <img src="https://img.shields.io/badge/Platforms-iOS%20%7C%20watchOS-blue.svg?style=flat" />
-    
-    <a href="https://github.com/apple/swift-package-manager">
-      <img src="https://img.shields.io/badge/Swift%20Package%20Manager-compatible-brightgreen.svg" />
-    </a>
 </p>
 
 Protocol oriented networking layer built natively with Swift
