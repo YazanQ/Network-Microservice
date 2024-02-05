@@ -70,9 +70,9 @@ struct BaseResponse<T: Decodable>: Decodable {
 
 ```swift
 protocol PersonUseCase {
-    func loadPersons() -> BaseResponse<[Book]>
-    func addPerson(_ parameters: AddPersonParameters) -> BaseResponse<Person>
-    func deletePerson(_ person: Person) -> BaseResponse<VoidResponse>
+    func loadPersons() async throws -> [Book]
+    func addPerson(_ parameters: AddPersonParameters) async throws -> Person
+    func deletePerson(_ person: Person) async throws -> VoidResponse
 }
 
 final class APIPersonUseCase {
@@ -86,32 +86,32 @@ final class APIPersonUseCase {
 }
 
 extension APIPersonUseCase: PersonUseCase {
-    func loadPerson() -> BaseResponse<[Person]> {
+    func loadPerson() async throws -> [Person] {
         let request = RequestBuilder<[Person]>()
             .path("persons")
             .method(.get)
             .build()
         
-        return apiClient.execute(request)
+        return try await apiClient.execute(request).value.unwrap()
     }
     
-    func addPerson(_ parameters: AddPersonParameters) -> BaseResponse<Person> {
+    func addPerson(_ parameters: AddPersonParameters) async throws -> Person {
         let request = RequestBuilder<Person>()
             .path("persons")
             .method(.post)
             .encode(parameters, bodyEncoding: .jsonEncoding)
             .build()
         
-        return apiClient.execute(request)
+        return try await apiClient.execute(request).value.unwrap()
     }
     
-    func deletePerson(_ book: Book) -> BaseResponse<VoidResponse> {
+    func deletePerson(_ book: Book) async throws -> VoidResponse {
         let request = RequestBuilder<VoidResponse>()
             .path("persons/\(person.id)")
             .method(.delete)
             .build()
         
-        return apiClient.execute(request)
+        return try await apiClient.execute(request).value.unwrap()
     }
 }
 ```
