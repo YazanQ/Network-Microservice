@@ -70,7 +70,7 @@ struct BaseResponse<T: Decodable>: Decodable {
 
 ```swift
 protocol PersonUseCase {
-    func loadPersons() async throws -> [Book]
+    func loadPersons() async throws -> [Person]
     func addPerson(_ parameters: AddPersonParameters) async throws -> Person
     func deletePerson(_ person: Person) async throws -> VoidResponse
 }
@@ -105,7 +105,7 @@ extension APIPersonUseCase: PersonUseCase {
         return try await apiClient.execute(request).value.unwrap()
     }
     
-    func deletePerson(_ book: Book) async throws -> VoidResponse {
+    func deletePerson(_ person: Person) async throws -> VoidResponse {
         let request = RequestBuilder<BaseResponse<VoidResponse>>()
             .path("persons/\(person.id)")
             .method(.delete)
